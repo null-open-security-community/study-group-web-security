@@ -9,7 +9,7 @@ const config = {
   title: 'null Web Security Study Group',
   tagline: 'Resources & Study Materials for Learning Web Security!',
   url: 'https://blog.null.community',
-  baseUrl: '/web-security-study-group/',
+  baseUrl: '/study-group-web-security/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
