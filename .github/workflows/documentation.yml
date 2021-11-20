@@ -42,8 +42,10 @@ jobs:
         env:
           USE_SSH: true
           GIT_USER: git
+        with: 
+          branch: main
+          folder: build
         run: |
-          git checkout -b "gh-pages"
           git config --global user.email "0xcardinal@gmail.com"
           git config --global user.name "0xCardinal"
           if [ -e yarn.lock ]; then
