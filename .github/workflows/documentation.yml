@@ -39,12 +39,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
       - name: Release to GitHub Pages
-        env:
-          USE_SSH: true
-          GIT_USER: git
         with: 
           branch: main
           folder: static
+        env:
+          USE_SSH: true
+          GIT_USER: git
         run: |
           git config --global user.email "0xcardinal@gmail.com"
           git config --global user.name "0xCardinal"
