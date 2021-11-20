@@ -15,7 +15,7 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'null-open-security-community', // Usually your GitHub org/user name.
   projectName: 'study-group-web-security', // Usually your repo name.
-  deploymentBranch: 'main',
+  deploymentBranch: 'gh-pages',
 
   presets: [
     [
