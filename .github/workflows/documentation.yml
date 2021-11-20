@@ -44,7 +44,7 @@ jobs:
           GIT_USER: git
         with: 
           branch: main
-          folder: build
+          folder: static
         run: |
           git config --global user.email "0xcardinal@gmail.com"
           git config --global user.name "0xCardinal"
