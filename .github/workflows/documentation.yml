@@ -2,9 +2,11 @@ name: documentation
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
   push:
-    branches: [gh-pages]
+    branches: 
+      - main
 
 jobs:
   checks:
@@ -41,6 +43,7 @@ jobs:
           USE_SSH: true
           GIT_USER: git
         run: |
+          git checkout -b "gh-pages"
           git config --global user.email "0xcardinal@gmail.com"
           git config --global user.name "0xCardinal"
           if [ -e yarn.lock ]; then
