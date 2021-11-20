@@ -49,6 +49,8 @@ jobs:
         env:
           USE_SSH: true
           GIT_USER: git
+          BRANCH: gh-pages
+          FOLDER: static
         run: |
           git config --global user.email "0xcardinal@gmail.com"
           git config --global user.name "0xCardinal"
