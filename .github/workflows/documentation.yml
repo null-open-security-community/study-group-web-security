@@ -31,8 +31,6 @@ jobs:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
-        with:
-          ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
       - name: Release to GitHub Pages
         with: 
           branch: main
@@ -43,6 +41,8 @@ jobs:
             with:
               node-version: '14.x'
           webfactory/ssh-agent@v0.5.0
+            with:
+              ssh-private-key: ${{ secrets.GH_PAGES_DEPLOY }}
         env:
           USE_SSH: true
           GIT_USER: git
