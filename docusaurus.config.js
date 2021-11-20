@@ -53,7 +53,7 @@ const config = {
           // {to: '/blog', label: 'Blog', position: 'left'},
           {to: 'showcase', label: 'Showcase', position: 'left'},
           {
-            href: 'https://www.linkedin.com/company/null-the-open-security-community',
+            href: 'https://github.com/null-open-security-community',
             className: 'header-github-link',
             label: 'GitHub',
             position: 'right',
