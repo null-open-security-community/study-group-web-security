@@ -22,4 +22,5 @@ sidebar_position: 1
 16. https://hackerone.com/reports/1085782  [An interesting report on an IDOR disclosing critical PII]
 17. https://medium.com/@gulprit_singh/account-takeover-through-idor-2e4a7882c334
 18. https://payatu.com/blog/prateek.thakare/broken-access-control
+19. https://galnagli.com/Samsung_Exposure/
 
