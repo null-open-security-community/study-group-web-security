@@ -21,5 +21,5 @@ sidebar_position: 1
 15. https://thehackerish.com/idor-tutorial-hands-on-owasp-top-10-training/
 16. https://hackerone.com/reports/1085782  [An interesting report on an IDOR disclosing critical PII]
 17. https://medium.com/@gulprit_singh/account-takeover-through-idor-2e4a7882c334
-
+18. https://payatu.com/blog/prateek.thakare/broken-access-control
 
