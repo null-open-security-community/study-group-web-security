@@ -19,6 +19,7 @@ sidebar_position: 1
 13. https://medium.com/@aysebilgegunduz/everything-you-need-to-know-about-idor-insecure-direct-object-references-375f83e03a87
 14. https://portswigger.net/web-security/access-control/idor
 15. https://thehackerish.com/idor-tutorial-hands-on-owasp-top-10-training/
+16. https://hackerone.com/reports/1085782  [An interesting report on an IDOR disclosing critical PII]
+17. https://medium.com/@gulprit_singh/account-takeover-through-idor-2e4a7882c334
 
-## Contributors
-* [Harsh Bothra](https://twitter.com/harshbothra_)
+
