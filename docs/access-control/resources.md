@@ -24,4 +24,4 @@ sidebar_position: 1
 18. https://payatu.com/blog/prateek.thakare/broken-access-control
 19. https://galnagli.com/Samsung_Exposure/
 20. https://infosecwriteups.com/dank-writeup-on-broken-access-control-on-an-indian-startup-d29132a1ecd
-
+21. https://www.youtube.com/watch?v=NtjlGV7Cdvk [$28k IDOR that broke Apple Shortcuts - Apple bug bounty]
