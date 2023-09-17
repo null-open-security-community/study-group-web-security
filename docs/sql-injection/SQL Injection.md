@@ -1,8 +1,5 @@
 # SQL Injection in Detail
 
-Let's Get Connected: [LinkedIn](https://www.linkedin.com/in/nimishdudhe) 
-And Follow Me On: [Medium](https://secoverflowshanks.medium.com)
-
 ![image](./Attachments/SQL-Intro.png)
 ## What Is An SQL Injection(SQLi) Attack?
 SQL injection, AKA(Also Known As) SQLi is an injection attack where the attacker can interfere with the underlying queries used in the application for retrieving, modifying, or deleting data. This is possible by modifying the data sent to servers through different parameters. We can try tampering the data sent through HTTP requests for testing for possible SQL Injection vulnerabilities. We will use a web proxy(Burp or ZAP) or maybe the command line for this purpose.
