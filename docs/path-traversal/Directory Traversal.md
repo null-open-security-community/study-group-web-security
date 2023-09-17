@@ -40,6 +40,8 @@ For directory traversal attacks on windows files, you can try retrieving the `C:
 ![image](./Attachments/Pasted image 20230625100936.png)
 *The above files are from the **Windows Drive***
 
+
+
 #### [Directory Traversal Lab 1 - File path traversal, simple case](https://portswigger.net/web-security/file-path-traversal/lab-simple)
 
 Description of Lab:
@@ -69,6 +71,7 @@ Now let's try the filename parameter.
 ![image](./Attachments/DT-Lab1-4.png)
 
 
+
 ### Common obstacles to exploit file path traversal vulnerabilities
 This section discusses the attacks against common implementation of defence mechanisms against path traversal attacks in file retrieval applications. It acknowledges that despite these defences, there are still ways to bypass them. The paragraph emphasises the importance of practical exercises and lab-solving to explore and understand the techniques used to overcome these defence methods. By gaining insights from these activities, developers can improve the security of file retrieval applications and protect against path traversal attacks. 
 
@@ -84,29 +87,30 @@ To solve the lab, retrieve the contents of the /etc/passwd file.
 ```
 
 1. Access the lab.
-![image](./Attachments/Pasted image 20230626201953.png)
+![image](./Attachments/DT-Lab2-1.png)
 
 2. Right click on the image and open the image in a new tab.
-![image](./Attachments/Pasted image 20230626202025.png)
+![image](./Attachments/DT-Lab2-2.png)
 
 3. Try injecting the URL for exploiting directory traversal.
-![image](./Attachments/Pasted image 20230626202153.png)
+![image](./Attachments/DT-Lab2-3.png)
 We first try a retrieving a random file just to check the response of the attack. It clearly states: *No such file*
 
 4. Let's now try retrieving the `/etc/passwd` file.
-![image](./Attachments/Pasted image 20230626202226.png)
+![image](./Attachments/DT-Lab2-4.png)
 And we can see a result which is different than the previous result. Seeing this we can conclude that we were successful in performing directory traversal attack.
 
 5. And we successfully solved the lab.
-![image](./Attachments/Pasted image 20230626203155.png)
+![image](./Attachments/DT-Lab2-5.png)
 
 In the same lab when we try `./54.jpg`, we don't get an error.
-![image](./Attachments/Pasted image 20230626202633.png)
+![image](./Attachments/DT-Lab2-5-1.png)
 
 But when we try directory traversal using `../images/54.jpg`, we get the error **No such file**.
-![image](./Attachments/Pasted image 20230626202745.png)
+![image](./Attachments/DT-Lab2-5-2.png)
 
 By this we can conclude that either the directory name isn't images or the application is programmed such that when it gets a `../` sequence, it will throw an error.
+
 
 
 #### [Directory Traversal Lab 3 - File path traversal, traversal sequences stripped non-recursively](https://portswigger.net/web-security/file-path-traversal/lab-sequences-stripped-non-recursively)
@@ -121,35 +125,36 @@ To solve the lab, retrieve the contents of the /etc/passwd file.
 ```
 
 1. Access the lab.
-![image](./Attachments/Pasted image 20230626210448.png)
+![image](./Attachments/DT-Lab3-1.png)
 
 2. Let's again open one of the images in a new tab.
-![image](./Attachments/Pasted image 20230626210522.png)
+![image](./Attachments/DT-Lab3-2.png)
 
 3. Let's now try the previous directory traversal methods.
-![image](./Attachments/Pasted image 20230626210607.png)
+![image](./Attachments/DT-Lab3-3.png)
 The first one didn't work.
 
-![image](./Attachments/Pasted image 20230626210639.png)
+![image](./Attachments/DT-Lab3-3-1.png)
 The second one didn't work too. So, we need to try something new.
 
 4. The payload we tried is `....//....//....//....//....//....//etc/passwd` and we are successful.
-![image](./Attachments/Pasted image 20230626212019.png)
+![image](./Attachments/DT-Lab3-4.png)
 
 5. We successfully solved the lab.
-![image](./Attachments/Pasted image 20230626212128.png)
+![image](./Attachments/DT-Lab3-5.png)
 
 **Now let's try to figure out what's happening in the back-end.**
 
 
 The payload `../../8.jpg` didn't work. This means that either we weren't able to go to the parent directory or the image is in the root directory which most probably isn't the case.
-![image](./Attachments/Pasted image 20230626212257.png)
+![image](./Attachments/DT-Lab3-5-1.png)
 So, it might be that the actual parameter that loaded the image somehow became `8.jpg` or `././8.jpg`. In the first case, the application must be programmed as `replace('../','')` to remove the going to parent directory action. And in the second case, the program might be programmed as `replace('../','./')` to change the parent directory to the current directory. Which is the reason why the image still loads.
 
 Here the payload `.../../8.jpg` caused an error successfully. This means that either one of the two happened and the effective filename became either `.8.jpg` or `.././8.jpg`. In both cases, file wont be found as there doesn't exit a file `.8.jpg` in the current directory and `8.jpg` in the parent directory. 
-![image](./Attachments/Pasted image 20230626212316.png)
+![image](./Attachments/DT-Lab3-5-2.png)
 
 So, this explains why our payload `....//....//....//....//....//....//etc/passwd` worked. It must've translated to an effective filename which is either `../../../../../../etc/passwd`. As the other effective filename i.e. : `...//...//...//...//...//...//etc/passwd` isn't valid.
+
 
 
 #### [Directory Traversal Lab 4 - File path traversal, traversal sequences stripped with superfluous URL-decode](https://portswigger.net/web-security/file-path-traversal/lab-superfluous-url-decode)
@@ -191,6 +196,7 @@ Now the % will be converted to \%25
 ![image](./Attachments/DT-Lab4-8.png)
 
 
+
 #### [Directory Traversal Lab 5 - File path traversal, validation of start of path](https://portswigger.net/web-security/file-path-traversal/lab-validate-start-of-path)
 
 Description of Lab:
@@ -216,6 +222,7 @@ We can see that the URL starts with `/var/www/images`, We can try appending `/..
 ![image](./Attachments/DT-Lab5-4.png)
 
 
+
 #### [Directory Traversal Lab 6 - File path traversal, validation of file extension with null byte bypass](https://portswigger.net/web-security/file-path-traversal/lab-validate-file-extension-null-byte-bypass)
 
 Description of Lab:
@@ -239,6 +246,7 @@ Let's now try appending null character and file extension to the URL.
 
 4. And we've solved all the directory traversal labs.
 ![image](./Attachments/DT-Lab6-4.png)
+
 
 
 ### Summary
