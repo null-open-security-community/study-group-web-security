@@ -128,3 +128,64 @@ To open the response in a browser, right click on the response and select `Reque
 15. As we can see the `Congratulations, you solved the lab!` message, we can conclude that we were successful at deleting `carlos` account.
 
 ![image](./Attachments/SSRF-Lab1-15.png)
+
+### [SSRF Lab 2 - Basic SSRF against another back-end system](https://portswigger.net/web-security/ssrf/lab-basic-ssrf-against-backend-system)
+Description of Lab:
+```
+This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, use the stock check functionality to scan the internal 192.168.0.X range for an admin interface on port 8080, then use it to delete the user carlos.
+```
+
+1. Access the lab.
+
+![image](./Attachments/SSRF-Lab2-1.png)
+
+2. Open any product's page.
+
+![image](./Attachments/SSRF-Lab2-2.png)
+
+3. Check the stock.
+
+![image](./Attachments/SSRF-Lab2-3.png)
+
+4. Look for the stock retrieval request in BurpSuite.
+
+![image](./Attachments/SSRF-Lab2-4.png)
+
+5. Send the request to repeater to tamper the request and test.
+
+![image](./Attachments/SSRF-Lab2-5.png)
+
+6. Let's now try editing the `stockApi` link in the request.
+
+![image](./Attachments/SSRF-Lab2-6.png)
+
+7. As we know from the description that the admin interface is at the server `192.168.0.x` at port `8080`. We need to try finding the `x`. Send the request to intruder.
+
+![image](./Attachments/SSRF-Lab2-7.png)
+
+8. Now in the Intruder tab, select the `1` in the `stockApi` link and press the Add button in the right side.
+
+![image](./Attachments/SSRF-Lab2-8.png)
+
+9. Now As the values can be anything from `1 to 255`, Let's copy the values `1 to 255` and go to the payloads tab. 
+   ***Note:** What I've done here is echoed values from `1 to 255` and then used a tool **`xclip`** to copy the numbers to the clipboard by piping the output of loop into `xclip` command.*
+
+![image](./Attachments/SSRF-Lab2-9.png)
+
+10. Now paste the copied payloads using the paste button in `Payload settings [Simple list]` and then press the `start attack` button. 
+
+![image](./Attachments/SSRF-Lab2-10.png)
+
+11. Here you will see a request that stands out. This is how we get the value of `x`.
+
+![image](./Attachments/SSRF-Lab2-11.png)
+
+12. Now replace `x` with the payload and send the request with the URL which is used to delete an account.
+
+![image](./Attachments/SSRF-Lab2-12.png)
+
+13. Reloading the page, you can see the message `Congratulations, you solved the lab!`.
+
+![image](./Attachments/SSRF-Lab2-13.png)
