@@ -53,6 +53,10 @@ What happens here is that the data is fetched from the request and the URL to be
 
 An attacker can visit `/admin` URL, but as the user is unauthenticated, the page won't be accessible. But when the same page is requested from within the server, the normal access controls are bypassed because the request appears to originate from a trusted location.
 
+**To open a browser with burp proxy set up, You can click the `Open browser` button in the `Proxy` tab.**
+
+![image](./Attachments/open-browser.png)
+
 ### [SSRF Lab 1 - Basic SSRF against the local server](https://portswigger.net/web-security/ssrf/lab-basic-ssrf-against-localhost)
 
 Description of Lab:
@@ -189,3 +193,72 @@ To solve the lab, use the stock check functionality to scan the internal 192.168
 13. Reloading the page, you can see the message `Congratulations, you solved the lab!`.
 
 ![image](./Attachments/SSRF-Lab2-13.png)
+
+## Circumventing common SSRF defenses
+
+Applications usually contain defence against SSRF attacks which are aimed at exploiting the application's internal trust structure. These defenses can be circumvented using different techniques which we will discuss below:
+### SSRF with blacklist-based input filters
+Some applications block input containing `hostnames` like `127.0.0.1` and `localhost`, or sensitive URLs like /admin. In this situation, we can often bypass the security measures using the following techniques: 
+- Use an alternative IP representation of `127.0.0.1`, such as `2130706433`, `017700000001`, `0177.0.0.1`, `0x7f.0.0.1`, `127.0.1`, `0x7f000001` or `127.1`.
+- You can use any domain that resolves to `127.0.0.1`. One good example is `localtest.me` and all its subdomains except `readme.localtest.me`.
+- Obfuscate blocked strings using URL encoding or case variation.
+- Provide a URL that you control, which redirects to the target URL. Try using different redirect codes, as well as different protocols. For example, switching from an `http:` to `https:` URL during the redirect has been shown to bypass some anti-SSRF filters.
+
+Enough theory. Let's Put this into practice ==\ **Right Now!** ==
+### [SSRF Lab 3 - SSRF with blacklist-based input filter](https://portswigger.net/web-security/ssrf/lab-ssrf-with-blacklist-filter)
+
+1. Access the lab and open any product's page.
+
+![image](./Attachments/SSRF-Lab3-1.png)
+
+2. Click on the `Check stock` button.
+
+![image](./Attachments/SSRF-Lab3-2.png)
+
+
+3. Look for the `Check stock` request in `BurpSuite` and try using alternative IP representations of `localhost` in place of the `stockApi` parameter value.
+
+![image](./Attachments/SSRF-Lab3-3.png)
+
+4. Let's try `http://127.1/admin` first.
+
+![image](./Attachments/SSRF-Lab3-4.png)
+
+Didn't work.
+
+5. Let's now try retrieving `http://2130706433/admin`.
+
+![image](./Attachments/SSRF-Lab3-5.png)
+
+Didn't work!
+
+6. Let's not try getting to the admin page ATM. Let's just try loading the index page, which would be situated at `127.1` and could be retrieved by `stockApi=http://127.1` .
+
+![image](./Attachments/SSRF-Lab3-6.png)
+
+And we're successful loading the index page.
+
+7. As we've tried `http://127.1/admin` in the 4th step, we won't try it again, The initial part of the URL works fine as we saw in the previous step. Let's now try encoding characters from the `/admin` part. Let's URL encode the `a` in the start of `/admin`.
+
+![image](./Attachments/SSRF-Lab3-7.png)
+
+Didn't Work.
+
+8. Let's double encode the same. The `%` sign encodes to `%25`.
+
+![image](./Attachments/SSRF-Lab3-8.png)
+
+***This Worked!***
+
+![image](./Attachments/SSRF-Lab3-8-1.png)
+
+Above we can see the deletion link for the user `carlos`. i.e. `/admin/delete?username=carlos`.
+
+9. Let's now use the URL to try to delete the user `carlos` by editing the request.
+
+![image](./Attachments/SSRF-Lab3-9.png)
+
+10. And We're Done! `Congratulations, you solved the lab!`
+
+![image](./Attachments/SSRF-Lab3-10.png)
+
