@@ -370,3 +370,60 @@ The developer has deployed an anti-SSRF defense you will need to bypass.
 
 ![image](./Attachments/SSRF-Lab4-12.png)
 
+### Bypassing SSRF filters via open redirection
+Open redirection vulnerability can be sometimes used to bypass filter-based defenses. In the previous example, Let's suppose that the user submitted URL is strictly validated. i.e. the link should be  starting with `http://weliketoshop.net`. However the application whose URLs are allowed contains an open redirection vulnerability and the application redirects the user to the desired target.
+
+For example, `/product/nectProduct?currentProductId=6&path=http://evil-user.net` would redirect the user to `http://evil-user.net`
+
+We can leverage the open redirect vulnerability to bypass the URL filter, and exploit 
+
+### [SSRF Lab 5 - SSRF with filter bypass via open redirection vulnerability](https://portswigger.net/web-security/ssrf/lab-ssrf-filter-bypass-via-open-redirection)
+
+Description of Lab:
+
+```
+This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, change the stock check URL to access the admin interface at `http://192.168.0.12:8080/admin` and delete the user carlos.
+
+The stock checker has been restricted to only access the local application, so you will need to find an open redirect affecting the application first.
+```
+
+1. As always, access the lab.
+
+![image](./Attachments/SSRF-Lab5-1.png)
+
+2. Open up any product's page. Here we can see the links for `Next product`. Click on the `Next product` link.
+
+![image](./Attachments/SSRF-Lab5-2.png)
+
+3. Locate the specific request in BurpSuite.
+
+![image](./Attachments/SSRF-Lab5-3.png)
+As we can see, It takes us to the `Next product` using the `path=` parameter in the first line of the request. 
+
+4. Let's now check for open redirection sending the request through `stockApi` parameter.
+
+![image](./Attachments/SSRF-Lab5-4.png)
+As we can see that the request doesn't respond with anything.
+
+5. Let's now try encoding the characters and sending the request!
+
+![image](./Attachments/SSRF-Lab5-5.png)
+*Again, No Luck*
+
+6. Lets try encoding them again for one last time.
+
+![image](./Attachments/SSRF-Lab5-6.png)
+***And it Worked!***
+
+7. Now let's use the same trick to delete the `carlos` account.
+
+![image](./Attachments/SSRF-Lab5-7.png)
+***We're successful in it!***
+
+8. `Congratulations, you solved the lab!`
+
+![image](./Attachments/SSRF-Lab5-8.png)
+
+
